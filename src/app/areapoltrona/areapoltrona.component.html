@@ -1,0 +1,68 @@
+<div class="container mt-3">
+
+  <div class="row justify-content-center">
+
+    <div class="col-6 col-md-3 mb-3" *ngFor="let poltrona of poltronas; trackBy: trackByCodigo">
+      <div class="card text-center shadow-sm">
+
+
+        <img *ngIf="poltrona.status === StatusPoltrona.ATIVO" src="assets/images/poltrona_disponivel.png"
+          alt="Poltrona disponível" class="card-img-top img-fluid" style="max-width: 100px; margin: 0 auto;" />
+
+        <img *ngIf="poltrona.status === StatusPoltrona.INATIVO" src="assets/images/poltrona_inativa.png"
+          alt="Poltrona inativa" class="card-img-top img-fluid" style="max-width: 100px; margin: 0 auto;" />
+
+        <img *ngIf="poltrona.status === StatusPoltrona.RESERVADO" src="assets/images/poltrona_reservada.png"
+          alt="Poltrona reservada" class="card-img-top img-fluid" style="max-width: 100px; margin: 0 auto;" />
+
+
+
+        <div class="card-body p-2">
+
+          <div class="status-indicator" [ngSwitch]="poltrona.status">
+            <span *ngSwitchCase="'ATIVO'" class="badge badge-success badge-pill badgepersonalizado">
+              DISPONÍVEL
+            </span>
+
+            <span *ngSwitchCase="'INATIVO'" class="badge badge-secondary badge-pill badgepersonalizado">
+              {{ poltrona.status }}
+            </span>
+
+            <span *ngSwitchCase="'RESERVADO'" class="badge badge-info badge-pill badgepersonalizado">
+              {{ poltrona.status }}
+            </span>
+
+            <!-- Fallback para status desconhecidos -->
+            <span *ngSwitchDefault class="badge badge-warning badge-pill badgepersonalizado">
+              Status Desconhecido
+            </span>
+          </div>
+
+          <div class="mb-2">
+            <span class="badge badge-success badge-pill badgepersonalizado">{{poltrona.tipo}}</span>
+          </div>
+
+          <div class="mb-2">
+            <span class="badge badge-success badge-pill badgepersonalizado">{{poltrona.codigoPoltrona}}
+            </span>
+
+            <span class="ml-2 badge badge-success badge-pill badgepersonalizado" *ngIf="poltrona.pessoaNome">{{poltrona.pessoaNome}}
+            </span>
+
+          </div>
+
+          <div class="btn-group-vertical w-100">
+            <button class="btn btn-danger btn-xs py-1" *ngIf="poltrona.status=='RESERVADO'" (click)="liberarPoltrona(poltrona)">
+              CANCELAR
+            </button>
+            <button class="btn btn-danger btn-xs py-1" *ngIf="poltrona.status=='INATIVO'" disabled>
+              EM REPARO
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+</div>

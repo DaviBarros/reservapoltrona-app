@@ -1,0 +1,31 @@
+<div class="container mt-5">
+  <!--Caso seja reservada com sucesso-->
+  <div *ngIf="mostrarAlertSucesso" class="alert alert-success alert-dismissible fade show" role="alert">
+    <strong>Sucesso!</strong> Poltrona reservada para {{ nomeCadastrado }}
+  </div>
+
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="nome">Nome</label>
+      <input id="nome" formControlName="nome" type="text" placeholder="Digite o nome" class="form-control" />
+      <!-- Mensagem de erro-->
+      <div *ngIf="form.controls['nome'].invalid && form.controls['nome'].touched" class="text-danger">
+        Nome é obrigatório.
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="codigoPoltrona">Poltrona</label>
+      <select id="codigoPoltrona" formControlName="codigoPoltrona" class="form-control">
+        <option value="" disabled selected>Selecione uma poltrona</option>
+        <option *ngFor="let poltrona of poltronas" [value]="poltrona.codigoPoltrona">
+          {{ poltrona.codigoPoltrona }}
+        </option>
+      </select>
+    </div>
+
+    <button type="submit" [disabled]="form.invalid" class="btn btn-primary">RESERVAR POLTRONA</button>
+    <a class="btn btn-primary ml-2"  routerLink="/home" routerLinkActive="active" ariaCurrentWhenActive="page">VOLTAR</a>
+
+  </form>
+</div>

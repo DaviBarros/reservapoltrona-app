@@ -1,0 +1,8 @@
+.badgepersonalizado {
+  max-width: 90%; /* Ajuste conforme necessário */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+
